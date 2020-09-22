@@ -1,5 +1,8 @@
 @echo off
 echo %1 > text.txt
-FOR /F "tokens=* delims=;" %%A IN (".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC") DO find /I /C "%%A" text.txt
-for /F %%i in (tt.txt) do set result=%%i
-echo %result%
+FOR /F "delims=;" %%A IN (".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC") DO (
+    find /C /I "%%A" text.txt 1> isInPathext.txt 
+)
+for /f "tokens=3 delims= " %%a in (isInPathext.txt) do (
+    pathext.bat %1 %%a
+)
